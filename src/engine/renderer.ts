@@ -2,15 +2,15 @@ import {gl, glInstanceWrapper} from './gl';
 import {ENTITY_TYPE, REFRESH_RATE} from './constants';
 import {initializeBasicShaders, worldShader} from './shader';
 import {Entity} from './entity';
-import {Camera} from './camera';
 import {vec3} from 'gl-matrix';
 import {managers} from './managers';
+import {Player} from './player';
 
 let rendering = false;
 let entity: any;
 let entity2: any;
 let entity3: any;
-const camera = new Camera();
+let player: any;
 
 export function startRendering() {
   rendering = true;
@@ -20,6 +20,7 @@ export function startRendering() {
   entity2 = new Entity(ENTITY_TYPE.CUBE);
   entity3 = new Entity(ENTITY_TYPE.CUBE);
 
+  player = new Player('Dustin');
   entity2.position = vec3.fromValues(0, 2, -10);
   entity3.position = vec3.fromValues(5, 2, -10);
 }
@@ -44,9 +45,9 @@ function renderWorld() {
     1
   );
 
-  camera.initialize();
-  camera.render();
-
+  managers.playerManager.objects.forEach((value, key) => {
+    value.render();
+  });
   managers.entityManager.objects.forEach((value, key) => {
     value.render();
   });

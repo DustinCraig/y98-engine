@@ -3,6 +3,7 @@ import {startRendering} from './engine/renderer';
 import {MAIN_CANVAS_NAME} from './engine/constants';
 import {managers} from './engine/managers';
 import {EntityManager} from './engine/managers/entityManager';
+import {PlayerManager} from './engine/managers/playerManager';
 
 window.addEventListener('resize', () => {
   const canvas = <HTMLCanvasElement | null>(
@@ -14,6 +15,7 @@ window.addEventListener('resize', () => {
   glInstanceWrapper.resize(canvas.width, canvas.height);
 });
 
+managers.playerManager = new PlayerManager();
 managers.entityManager = new EntityManager();
 
 startRendering();

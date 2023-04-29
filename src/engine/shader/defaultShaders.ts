@@ -39,6 +39,6 @@ uniform mat4 uCameraMatrix;
 
 void main() {
 
-  gl_Position = uPMatrix * uMVMatrix * vec4(aPosition.xyz, 1.0);
+  gl_Position = uPMatrix * uCameraMatrix * uMVMatrix * vec4(aPosition.xyz, 1.0);
 }
 `;

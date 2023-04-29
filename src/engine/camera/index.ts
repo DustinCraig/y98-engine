@@ -25,18 +25,32 @@ export class Camera {
     );
   }
 
+  set position(vec: vec3) {
+    this._transform.position = vec;
+  }
+
+  get position() {
+    return this._transform.position;
+  }
+
+  set rotation(vec: vec3) {
+    this._transform.rotation = vec;
+  }
+
+  get rotation() {
+    return this._transform.rotation;
+  }
+
   initialize() {
     this.updatePerspectiveMatrix();
-    // vec3.set(this._transform.position, 0, 0, -26);
   }
 
   render() {
     this._transform.updateMatrix();
-    // TODO: update camera modelview matrix
     worldShader.setPerspectiveMatrix(this.perspectiveMatrix);
-    // worldShader.setModelMatrix(
-    //   this._transform._viewMatrix,
-    //   UNIFORM_LOCATIONS.CAMERA_MATRIX
-    // );
+    worldShader.setModelMatrix(
+      this._transform._viewMatrix,
+      UNIFORM_LOCATIONS.CAMERA_MATRIX
+    );
   }
 }
