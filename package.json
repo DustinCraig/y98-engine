@@ -1,0 +1,33 @@
+{
+  "name": "y98-engine",
+  "version": "1.0.0",
+  "description": "2D Game Engine",
+  "repository": "https://github.com/DustinCraig/y98-engine",
+  "author": "Dustin Craig",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "gts": "^3.1.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "~4.7.0",
+    "webpack": "^5.76.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "scripts": {
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "build": "webpack",
+    "start": "webpack serve --open"
+  },
+  "dependencies": {
+    "@types/uuid": "^9.0.1",
+    "gl-matrix": "^3.4.3",
+    "uuid": "^9.0.0"
+  }
+}

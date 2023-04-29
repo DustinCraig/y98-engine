@@ -1,0 +1,7 @@
+.yarn/unplugged
+.yar/build-state.yml
+node_modules
+dist/
+yarn-error.log
+/**/.idea/*
+**/.DS_Store
