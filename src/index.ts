@@ -4,6 +4,7 @@ import {MAIN_CANVAS_NAME} from './engine/constants';
 import {managers} from './engine/managers';
 import {EntityManager} from './engine/managers/entityManager';
 import {PlayerManager} from './engine/managers/playerManager';
+import {Settings} from './settings';
 
 window.addEventListener('resize', () => {
   const canvas = <HTMLCanvasElement | null>(
@@ -17,5 +18,7 @@ window.addEventListener('resize', () => {
 
 managers.playerManager = new PlayerManager();
 managers.entityManager = new EntityManager();
+
+Settings.initialize();
 
 startRendering();

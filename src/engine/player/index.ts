@@ -3,6 +3,8 @@ import {Transform} from '../entity/transform';
 import {vec3} from 'gl-matrix';
 import {v4 as uuid} from 'uuid';
 import {Camera} from '../camera';
+import {Settings} from '../../settings';
+import {MOVE_BACKWARD, MOVE_FORWARD, MOVE_LEFT, MOVE_RIGHT} from '../constants';
 
 export class Player extends ManagedObject {
   _name: string;
@@ -10,7 +12,6 @@ export class Player extends ManagedObject {
   _id: string;
   _camera: Camera;
   _direction: vec3;
-  _moveingForward: boolean;
 
   constructor(name: string) {
     super();
@@ -33,7 +34,6 @@ export class Player extends ManagedObject {
     this.addDocumentEventListener('keyup', e => {
       this.keyUp(e);
     });
-    this._moveingForward = false;
     managers.playerManager.add(this);
   }
 
@@ -59,20 +59,21 @@ export class Player extends ManagedObject {
 
   keyDown(event: KeyboardEvent) {
     const {key} = event;
+    const settings = Settings.getSettings();
     switch (key) {
-      case 'w': {
+      case settings[MOVE_FORWARD]: {
         this._direction[2] = 1;
         return;
       }
-      case 'a': {
+      case settings[MOVE_LEFT]: {
         this._direction[0] = 1;
         return;
       }
-      case 'd': {
+      case settings[MOVE_RIGHT]: {
         this._direction[0] = -1;
         return;
       }
-      case 's': {
+      case settings[MOVE_BACKWARD]: {
         this._direction[2] = -1;
       }
     }
@@ -80,14 +81,15 @@ export class Player extends ManagedObject {
 
   keyUp(event: KeyboardEvent) {
     const {key} = event;
+    const settings = Settings.getSettings();
     switch (key) {
-      case 's':
-      case 'w': {
+      case settings[MOVE_BACKWARD]:
+      case settings[MOVE_FORWARD]: {
         this._direction[2] = 0;
         return;
       }
-      case 'd':
-      case 'a': {
+      case settings[MOVE_LEFT]:
+      case settings[MOVE_RIGHT]: {
         this._direction[0] = 0;
         return;
       }
