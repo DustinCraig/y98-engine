@@ -12,6 +12,8 @@ export class Player extends ManagedObject {
   _id: string;
   _camera: Camera;
   _direction: vec3;
+  _pitch: number;
+  _yaw: number;
 
   constructor(name: string) {
     super();
@@ -20,6 +22,8 @@ export class Player extends ManagedObject {
     this._id = uuid();
     this._camera = new Camera();
     this._direction = vec3.create();
+    this._pitch = 0;
+    this._yaw = 0;
     this.addWindowEventListener('load', () => {
       setTimeout(() => {
         this.initialize();
@@ -33,6 +37,9 @@ export class Player extends ManagedObject {
     });
     this.addDocumentEventListener('keyup', e => {
       this.keyUp(e);
+    });
+    this.addDocumentEventListener('mousemove', e => {
+      this.mouseMove(e);
     });
     managers.playerManager.add(this);
   }
@@ -94,6 +101,10 @@ export class Player extends ManagedObject {
         return;
       }
     }
+  }
+
+  mouseMove(event: MouseEvent) {
+
   }
 
   render() {

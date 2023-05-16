@@ -18,9 +18,11 @@ export enum ENTITY_TYPE {
 export const FOV = 45;
 export const NEAR = 0.1;
 export const FAR = 10000;
+export const MOUSE_SPEED = 0.003;
 
 /* Actions */
 export const MOVE_FORWARD = 'MOVE_FORWARD';
 export const MOVE_LEFT = 'MOVE_LEFT';
 export const MOVE_RIGHT = 'MOVE_RIGHT';
 export const MOVE_BACKWARD = 'MOVE_BACKWARD';
+export const MOUSE_MOVE = 'MOUSE_MOVE';
