@@ -33,12 +33,12 @@ void main() {
 
 export const staticWorldVertex = `
 attribute vec4 aPosition;
-uniform mat4 uMVMatrix;
+uniform mat4 uMMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uCameraMatrix;
 
 void main() {
 
-  gl_Position = uPMatrix * uCameraMatrix * uMVMatrix * vec4(aPosition.xyz, 1.0);
+  gl_Position = uPMatrix * uCameraMatrix * uMMatrix * vec4(aPosition.xyz, 1.0);
 }
 `;

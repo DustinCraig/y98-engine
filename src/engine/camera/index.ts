@@ -46,10 +46,10 @@ export class Camera {
   }
 
   render() {
-    this._transform.updateMatrix();
+    this._transform.updateEyeMatrix();
     worldShader.setPerspectiveMatrix(this.perspectiveMatrix);
     worldShader.setModelMatrix(
-      this._transform._viewMatrix,
+      this._transform._modelMatrix,
       UNIFORM_LOCATIONS.CAMERA_MATRIX
     );
   }

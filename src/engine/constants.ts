@@ -20,7 +20,7 @@ export const NEAR = 0.1;
 export const FAR = 10000;
 export const MOUSE_SPEED = 0.003;
 
-/* Actions */
+/* Settings */
 export const MOVE_FORWARD = 'MOVE_FORWARD';
 export const MOVE_LEFT = 'MOVE_LEFT';
 export const MOVE_RIGHT = 'MOVE_RIGHT';

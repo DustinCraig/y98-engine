@@ -7,3 +7,7 @@ export function transformVec4(out: vec4, v: vec4, m: mat4) {
   out[3] = m[3] * v[0] + m[7] * v[1] + m[11] * v[2] + m[15] * v[3];
   return out;
 }
+
+export const degToRad = (deg: number) => deg * (Math.PI / 180);
+
+export const radToDeg = (rad: number) => rad * (180 / Math.PI);

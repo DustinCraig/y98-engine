@@ -4,7 +4,14 @@ import {vec3} from 'gl-matrix';
 import {v4 as uuid} from 'uuid';
 import {Camera} from '../camera';
 import {Settings} from '../../settings';
-import {MOVE_BACKWARD, MOVE_FORWARD, MOVE_LEFT, MOVE_RIGHT} from '../constants';
+import {
+  MOVE_BACKWARD,
+  MOVE_FORWARD,
+  MOVE_LEFT,
+  MOVE_RIGHT,
+  MOUSE_MOVE,
+} from '../constants';
+import {radToDeg} from '../../math';
 
 export class Player extends ManagedObject {
   _name: string;
@@ -104,12 +111,19 @@ export class Player extends ManagedObject {
   }
 
   mouseMove(event: MouseEvent) {
-
+    const settings = Settings.getSettings();
+    this._pitch += -event.movementY * settings[MOUSE_MOVE];
+    this._yaw += -event.movementX * settings[MOUSE_MOVE];
   }
 
   render() {
     this.position[0] = this.position[0] + 1 * this._direction[0];
     this.position[2] = this.position[2] + 1 * this._direction[2];
+    this._camera.rotation = vec3.fromValues(
+      radToDeg(-this._pitch),
+      radToDeg(-this._yaw),
+      0
+    );
     this._camera.position = vec3.fromValues(
       this.position[0],
       this.position[1] + 2,

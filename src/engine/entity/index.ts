@@ -111,8 +111,8 @@ export class Entity extends ManagedObject {
     this._transform.updateMatrix();
 
     worldShader.setModelMatrix(
-      this._transform._viewMatrix,
-      UNIFORM_LOCATIONS.MODEL_VIEW_MATRIX
+      this._transform._modelMatrix,
+      UNIFORM_LOCATIONS.MODEL_MATRIX
     );
     if (worldShader.program) {
       const posLocation = gl.getAttribLocation(

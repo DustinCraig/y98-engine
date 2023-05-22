@@ -1,7 +1,5 @@
 import {vec3, vec4, mat4} from 'gl-matrix';
-import {transformVec4} from '../../math';
-
-const degToRad = (deg: number) => deg * (Math.PI / 180);
+import {transformVec4, degToRad} from '../../math';
 
 export class Transform {
   _position: vec3;
@@ -10,7 +8,7 @@ export class Transform {
   _up: vec4;
   _right: vec4;
   _forward: vec4;
-  _viewMatrix: mat4;
+  _modelMatrix: mat4;
 
   constructor() {
     this._position = vec3.create();
@@ -21,38 +19,58 @@ export class Transform {
     this._up = vec4.create();
     this._right = vec4.create();
     this._forward = vec4.create();
-    this._viewMatrix = mat4.create();
+    this._modelMatrix = mat4.create();
   }
 
   resetViewMatrix() {
-    this._viewMatrix = mat4.create();
-    return this._viewMatrix;
+    this._modelMatrix = mat4.create();
+    return this._modelMatrix;
+  }
+
+  updateEyeMatrix() {
+    mat4.identity(this._modelMatrix);
+    mat4.rotateX(
+      this._modelMatrix,
+      this._modelMatrix,
+      degToRad(this._rotation[0])
+    );
+    mat4.rotateY(
+      this._modelMatrix,
+      this._modelMatrix,
+      degToRad(this._rotation[1])
+    );
+    mat4.rotateZ(
+      this._modelMatrix,
+      this._modelMatrix,
+      degToRad(this._rotation[2])
+    );
+    mat4.translate(this._modelMatrix, this._modelMatrix, this._position);
   }
 
   updateMatrix() {
-    mat4.identity(this._viewMatrix);
+    mat4.identity(this._modelMatrix);
 
-    mat4.translate(this._viewMatrix, this._viewMatrix, this._position);
+    mat4.translate(this._modelMatrix, this._modelMatrix, this._position);
     mat4.rotateX(
-      this._viewMatrix,
-      this._viewMatrix,
+      this._modelMatrix,
+      this._modelMatrix,
       degToRad(this._rotation[0])
     );
-    // mat4.rotateY(
-    //   this._viewMatrix,
-    //   this._viewMatrix,
-    //   degToRad(this._rotation[1])
-    // );
-    // mat4.rotateZ(
-    //   this._viewMatrix,
-    //   this._viewMatrix,
-    //   degToRad(this._rotation[2])
-    // );
-    // mat4.scale(this._viewMatrix, this._viewMatrix, this._scale);
+    mat4.rotateY(
+      this._modelMatrix,
+      this._modelMatrix,
+      degToRad(this._rotation[1])
+    );
+    mat4.rotateZ(
+      this._modelMatrix,
+      this._modelMatrix,
+      degToRad(this._rotation[2])
+    );
+    mat4.scale(this._modelMatrix, this._modelMatrix, this._scale);
 
-    // transformVec4(this._forward, [0, 0, 1, 0], this._viewMatrix);
-    // transformVec4(this._up, [0, 1, 0, 0], this._viewMatrix);
-    // transformVec4(this._right, [1, 0, 0, 0], this._viewMatrix);
+    // transformVec4(this._forward, [0, 0, 1, 0], this._modelMatrix);
+    // transformVec4(this._up, [0, 1, 0, 0], this._modelMatrix);
+    // transformVec4(this._right, [1, 0, 0, 0], this._modelMatrix);
   }
 
   rotateX(deg: number) {
@@ -113,10 +131,10 @@ export class Transform {
   }
 
   get viewMatrix() {
-    return this._viewMatrix;
+    return this._modelMatrix;
   }
 
   set viewMatrix(m: mat4) {
-    this._viewMatrix = m;
+    this._modelMatrix = m;
   }
 }

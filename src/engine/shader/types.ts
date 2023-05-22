@@ -24,7 +24,7 @@ export const SHADER_ATTRIBUTES: {[key: number]: ShaderAttribute} = {
 export enum UNIFORM_LOCATIONS {
   RESOLUTION = 'uResolution',
   COLOR = 'uColor',
-  MODEL_VIEW_MATRIX = 'uMVMatrix',
+  MODEL_MATRIX = 'uMMatrix',
   PERSPECTIVE_MATRIX = 'uPMatrix',
   CAMERA_MATRIX = 'uCameraMatrix',
 }

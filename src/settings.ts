@@ -3,6 +3,7 @@ import {
   MOVE_BACKWARD,
   MOVE_FORWARD,
   MOVE_LEFT,
+  MOUSE_MOVE,
   MOVE_RIGHT,
   SETTINGS_KEY,
 } from './engine/constants';
@@ -12,12 +13,11 @@ const defaultSettings = {
   [MOVE_LEFT]: 'a',
   [MOVE_RIGHT]: 'd',
   [MOVE_BACKWARD]: 's',
-  MOUSE_SPEED,
+  [MOUSE_MOVE]: MOUSE_SPEED,
 };
 
 export class Settings {
-  private static _settings: {[key: string]: string | number} | undefined =
-    undefined;
+  private static _settings: {[key: string]: any} | undefined = undefined;
 
   public static initialize() {
     this._settings = Settings.getSettings();
