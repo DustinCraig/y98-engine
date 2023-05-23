@@ -9,6 +9,10 @@ class GLInstance {
     );
 
     if (canvas) {
+      canvas.addEventListener('click', () => {
+        canvas.requestPointerLock();
+      });
+
       const context = canvas.getContext('webgl2');
       if (!context) {
         // TODO: Logging

@@ -117,8 +117,14 @@ export class Player extends ManagedObject {
   }
 
   render() {
-    this.position[0] = this.position[0] + 1 * this._direction[0];
-    this.position[2] = this.position[2] + 1 * this._direction[2];
+    if (this._direction[2]) {
+      this.position[0] += this._direction[2] * (Math.sin(this._yaw) * 1);
+      this.position[2] += this._direction[2] * (Math.cos(this._yaw) * 1);
+    }
+    if (this._direction[0]) {
+      this.position[0] += this._direction[0] * (Math.cos(this._yaw) * 1);
+      this.position[2] += this._direction[0] * -(Math.sin(this._yaw) * 1);
+    }
     this._camera.rotation = vec3.fromValues(
       radToDeg(-this._pitch),
       radToDeg(-this._yaw),
