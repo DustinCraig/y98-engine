@@ -4,7 +4,7 @@ export const SETTINGS_KEY = 'y98-SETTINGS';
 
 /* Shader */
 export const POSITION_ATTRIBUTE_LOCATION = 0;
-export const POSITION_ATTRIBUTE_NAME = 'aPos';
+export const POSITION_ATTRIBUTE_NAME = 'aPosition';
 export const TEXTURE_ATTRIBUTE_LOCATION = 1;
 export const TEXTURE_ATTRIBUTE_NAME = 'aTex';
 
@@ -15,14 +15,19 @@ export enum ENTITY_TYPE {
 }
 
 /* Camera */
-export const FOV = 45;
 export const NEAR = 0.1;
 export const FAR = 10000;
-export const MOUSE_SPEED = 0.003;
+export const FOV = 45;
 
 /* Settings */
-export const MOVE_FORWARD = 'MOVE_FORWARD';
-export const MOVE_LEFT = 'MOVE_LEFT';
-export const MOVE_RIGHT = 'MOVE_RIGHT';
-export const MOVE_BACKWARD = 'MOVE_BACKWARD';
-export const MOUSE_MOVE = 'MOUSE_MOVE';
+export const SETTINGS = {
+  // Movement
+  MOVE_FORWARD: 'MOVE_FORWARD',
+  MOVE_LEFT: 'MOVE_LEFT',
+  MOVE_RIGHT: 'MOVE_RIGHT',
+  MOVE_BACKWARD: 'MOVE_BACKWARD',
+  MOUSE_MOVE: 'MOUSE_MOVE',
+
+  // Camera
+  MOUSE_SPEED: 0.003,
+};

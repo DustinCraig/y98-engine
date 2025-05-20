@@ -4,13 +4,7 @@ import {vec3} from 'gl-matrix';
 import {v4 as uuid} from 'uuid';
 import {Camera} from '../camera';
 import {Settings} from '../../settings';
-import {
-  MOVE_BACKWARD,
-  MOVE_FORWARD,
-  MOVE_LEFT,
-  MOVE_RIGHT,
-  MOUSE_MOVE,
-} from '../constants';
+import {SETTINGS} from '../constants';
 import {radToDeg} from '../../math';
 
 export class Player extends ManagedObject {
@@ -75,19 +69,19 @@ export class Player extends ManagedObject {
     const {key} = event;
     const settings = Settings.getSettings();
     switch (key) {
-      case settings[MOVE_FORWARD]: {
+      case settings[SETTINGS.MOVE_FORWARD]: {
         this._direction[2] = 1;
         return;
       }
-      case settings[MOVE_LEFT]: {
+      case settings[SETTINGS.MOVE_LEFT]: {
         this._direction[0] = 1;
         return;
       }
-      case settings[MOVE_RIGHT]: {
+      case settings[SETTINGS.MOVE_RIGHT]: {
         this._direction[0] = -1;
         return;
       }
-      case settings[MOVE_BACKWARD]: {
+      case settings[SETTINGS.MOVE_BACKWARD]: {
         this._direction[2] = -1;
       }
     }
@@ -97,13 +91,13 @@ export class Player extends ManagedObject {
     const {key} = event;
     const settings = Settings.getSettings();
     switch (key) {
-      case settings[MOVE_BACKWARD]:
-      case settings[MOVE_FORWARD]: {
+      case settings[SETTINGS.MOVE_BACKWARD]:
+      case settings[SETTINGS.MOVE_FORWARD]: {
         this._direction[2] = 0;
         return;
       }
-      case settings[MOVE_LEFT]:
-      case settings[MOVE_RIGHT]: {
+      case settings[SETTINGS.MOVE_LEFT]:
+      case settings[SETTINGS.MOVE_RIGHT]: {
         this._direction[0] = 0;
         return;
       }
@@ -112,8 +106,8 @@ export class Player extends ManagedObject {
 
   mouseMove(event: MouseEvent) {
     const settings = Settings.getSettings();
-    this._pitch += -event.movementY * settings[MOUSE_MOVE];
-    this._yaw += -event.movementX * settings[MOUSE_MOVE];
+    this._pitch += -event.movementY * settings[SETTINGS.MOUSE_MOVE];
+    this._yaw += -event.movementX * settings[SETTINGS.MOUSE_MOVE];
   }
 
   render() {

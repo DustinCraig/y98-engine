@@ -1,19 +1,11 @@
-import {
-  MOUSE_SPEED,
-  MOVE_BACKWARD,
-  MOVE_FORWARD,
-  MOVE_LEFT,
-  MOUSE_MOVE,
-  MOVE_RIGHT,
-  SETTINGS_KEY,
-} from './engine/constants';
+import {SETTINGS, SETTINGS_KEY} from './engine/constants';
 
 const defaultSettings = {
-  [MOVE_FORWARD]: 'w',
-  [MOVE_LEFT]: 'a',
-  [MOVE_RIGHT]: 'd',
-  [MOVE_BACKWARD]: 's',
-  [MOUSE_MOVE]: MOUSE_SPEED,
+  [SETTINGS.MOVE_FORWARD]: 'w',
+  [SETTINGS.MOVE_LEFT]: 'a',
+  [SETTINGS.MOVE_RIGHT]: 'd',
+  [SETTINGS.MOVE_BACKWARD]: 's',
+  [SETTINGS.MOUSE_MOVE]: SETTINGS.MOUSE_SPEED,
 };
 
 export class Settings {
@@ -26,7 +18,6 @@ export class Settings {
   public static getSettings() {
     if (this._settings) return this._settings;
     const settingsString = localStorage.getItem(SETTINGS_KEY);
-    console.log('str ', settingsString);
     if (!settingsString) {
       this._settings = {...defaultSettings};
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(this._settings));
@@ -42,7 +33,7 @@ export class Settings {
     return Settings.getSettings()[settingName];
   }
 
-  public static setSetting(settingName: string, value: string) {
+  public static setSetting(settingName: keyof typeof SETTINGS, value: string) {
     // TODO: All events tied to this setting will have to be updated
     if (!this._settings) this._settings = {...defaultSettings};
     this._settings[settingName] = value;
