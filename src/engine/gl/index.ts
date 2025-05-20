@@ -7,12 +7,8 @@ class GLInstance {
     const canvas = <HTMLCanvasElement | null>(
       document.getElementById(MAIN_CANVAS_NAME)
     );
-
     if (canvas) {
-      canvas.addEventListener('click', () => {
-        canvas.requestPointerLock();
-      });
-
+      GLInstance.canvas = canvas;
       const context = canvas.getContext('webgl2');
       if (!context) {
         // TODO: Logging
@@ -47,6 +43,7 @@ class GLInstance {
   public static vaoExtension: OES_vertex_array_object | null;
   public static width: number;
   public static height: number;
+  public static canvas: HTMLCanvasElement;
 
   public static get Instance() {
     return this._instance;
@@ -68,4 +65,5 @@ class GLInstance {
 
 export const glInstanceWrapper = GLInstance;
 export const gl = GLInstance.gl;
+export const glCanvas = GLInstance.canvas;
 export const vaoExtension = GLInstance.vaoExtension;
