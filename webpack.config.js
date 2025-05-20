@@ -10,8 +10,10 @@ module.exports = {
   devServer: {
     static: './dist',
     client: {
-      overlay: false
-    }
+      overlay: false,
+    },
+    hot: true,
+    liveReload: true,
   },
   module: {
     rules: [
