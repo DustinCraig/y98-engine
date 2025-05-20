@@ -1,4 +1,4 @@
-import {mat4} from 'gl-matrix';
+import {mat4, vec4} from 'gl-matrix';
 import {gl} from '../gl';
 import {SHADER_ATTRIBUTES, UNIFORM_LOCATIONS} from './types';
 import {staticWorldVertex, staticWorldFragment} from './defaultShaders';
@@ -171,6 +171,23 @@ export class Shader {
     );
 
     gl?.uniformMatrix4fv(perspectiveMatrixLocation, false, new Float32Array(m));
+  }
+
+  public setColor(c: vec4) {
+    if (!this.program) return;
+
+    const colorUniformLocation = gl?.getUniformLocation(
+      this.program,
+      UNIFORM_LOCATIONS.COLOR
+    );
+
+    gl?.uniform4f(
+      colorUniformLocation as number,
+      c[0] / 255,
+      c[1] / 255,
+      c[2] / 255,
+      c[3]
+    );
   }
 }
 

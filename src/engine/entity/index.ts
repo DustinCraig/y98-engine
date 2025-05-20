@@ -1,17 +1,19 @@
 import {gl} from '../gl';
-import {vec3, vec4} from 'gl-matrix';
+import {vec3} from 'gl-matrix';
 import {Transform} from './transform';
-import {ENTITY_TYPE} from '../constants';
+import {ENTITY_TYPE, POSITION_ATTRIBUTE_LOCATION} from '../constants';
 import {CUBE, ObjectData} from './objectData';
 import {worldShader} from '../shader';
-import {UNIFORM_LOCATIONS} from '../shader/types';
+import {UNIFORM_LOCATIONS, SHADER_ATTRIBUTES} from '../shader/types';
 import {v4 as uuid} from 'uuid';
 import {managers, ManagedObject} from '../managers';
+import {Material} from './material';
 
 export class Entity extends ManagedObject {
+  material: Material;
+
   _name: string;
   _transform: Transform;
-  _color: vec4;
   _type: ENTITY_TYPE;
   _objectData: ObjectData;
   _vao: WebGLVertexArrayObject | undefined;
@@ -22,7 +24,7 @@ export class Entity extends ManagedObject {
     super();
     this._name = '';
     this._transform = new Transform();
-    this._color = vec4.create();
+    this.material = new Material();
     this._type = type;
     this._objectData = {vertices: [], normals: [], indices: []};
     this._vao = undefined;
@@ -53,14 +55,6 @@ export class Entity extends ManagedObject {
 
   set rotation(vec: vec3) {
     this._transform.rotation = vec;
-  }
-
-  set color(col: vec4) {
-    this._color = col;
-  }
-
-  get color() {
-    return this._color;
   }
 
   buildObjectFromType() {
@@ -105,11 +99,8 @@ export class Entity extends ManagedObject {
 
   render() {
     if (!this._vao) return;
-    // TODO: Rendering will be different for
-    // sprites vs objects?
-    this._transform.rotateX(4);
-    this._transform.updateMatrix();
 
+    this._transform.updateMatrix();
     worldShader.setModelMatrix(
       this._transform._modelMatrix,
       UNIFORM_LOCATIONS.MODEL_MATRIX
@@ -117,13 +108,15 @@ export class Entity extends ManagedObject {
     if (worldShader.program) {
       const posLocation = gl.getAttribLocation(
         worldShader.program,
-        'aPosition'
+        SHADER_ATTRIBUTES[POSITION_ATTRIBUTE_LOCATION].name
       );
       gl.vertexAttribPointer(posLocation, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(posLocation);
     }
-    gl.bindVertexArray(this._vao);
 
+    worldShader.setColor(this.material.color);
+
+    gl.bindVertexArray(this._vao);
     gl.drawElements(
       gl.TRIANGLES,
       this._objectData.indices.length,

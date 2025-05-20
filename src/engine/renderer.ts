@@ -1,4 +1,4 @@
-import {gl, glInstanceWrapper} from './gl';
+import {glInstanceWrapper} from './gl';
 import {ENTITY_TYPE, REFRESH_RATE} from './constants';
 import {initializeBasicShaders, worldShader} from './shader';
 import {Entity} from './entity';
@@ -20,7 +20,7 @@ export function startRendering() {
   entity2 = new Entity(ENTITY_TYPE.CUBE);
   entity3 = new Entity(ENTITY_TYPE.CUBE);
 
-  player = new Player('Dustin');
+  player = new Player('p');
   entity2.position = vec3.fromValues(0, 2, -10);
   entity3.position = vec3.fromValues(5, 2, -10);
 }
@@ -31,19 +31,6 @@ export function stopRendering() {
 
 function renderWorld() {
   worldShader.activate();
-
-  const colorUniformLocation = gl?.getUniformLocation(
-    worldShader.program as WebGLProgram,
-    'uColor'
-  );
-
-  gl?.uniform4f(
-    colorUniformLocation as number,
-    Math.random(),
-    Math.random(),
-    Math.random(),
-    1
-  );
 
   managers.playerManager.objects.forEach((value, key) => {
     value.render();
